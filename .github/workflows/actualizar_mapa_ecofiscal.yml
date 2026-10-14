@@ -1,0 +1,40 @@
+name: Relevamiento y Geolocalización Ecofiscal UCEL
+
+on:
+  schedule:
+    # Todos los lunes a las 08:00 UTC (05:00 en Argentina)
+    - cron: '0 8 * * 1'
+  workflow_dispatch: # Permite ejecutarlo a mano desde la pestaña Actions
+
+permissions:
+  contents: write
+
+jobs:
+  relevar-y-mapear:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 3. Instalar librerías
+        run: pip install feedparser
+
+      - name: 4. Buscar y geolocalizar novedades
+        run: python scripts/update_observatorio.py
+
+      - name: 5. Guardar cambios en data/novedades_mapa.json
+        run: |
+          git config user.name "Bot Observatorio Ecofiscal UCEL"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/novedades_mapa.json
+          if git diff --staged --quiet; then
+            echo "Sin novedades nuevas."
+          else
+            git commit -m "chore(mapa): nuevas novedades ecofiscales geolocalizadas"
+            git push
+          fi
