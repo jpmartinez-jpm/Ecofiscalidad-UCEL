@@ -1,0 +1,8 @@
+{
+  "name": "Observatorio de Ecofiscalidad UCEL",
+  "description": "Relevamiento de instrumentos ecofiscales de la Nación, las provincias y los municipios argentinos, con mapa, catálogo de normas y novedades. Proyecto de investigación UCEL.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

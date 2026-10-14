@@ -1,8 +1,8 @@
 """Relevamiento automático de novedades ecofiscales para el mapa del Observatorio UCEL.
-
 Consulta Google News (RSS), clasifica cada novedad por eje temático, la geolocaliza
 y la agrega a data/novedades_mapa.json (sin duplicar URLs ni títulos).
 """
+
 import json
 import os
 import re
@@ -71,6 +71,7 @@ KNOWN_LOCATIONS = [
     ("san francisco", "San Francisco, EE. UU.", "Internacional", 37.7749, -122.4194),
     ("argentina", "Buenos Aires, Argentina (alcance nacional)", "Argentina", -34.6037, -58.3816),
 ]
+
 DEFAULT_LOCATION = KNOWN_LOCATIONS[-1]
 
 # Si no aparece ningún lugar concreto, se infiere el país por vocabulario típico.
@@ -91,23 +92,19 @@ CATEGORY_RULES = [
     ("Vialidad y Movilidad Urbana", ["congestion", "peaje", "vehiculo", "movilidad"]),
 ]
 
-
 def normalize(text):
     """Minúsculas y sin tildes, para comparar palabras de forma robusta."""
     text = unicodedata.normalize("NFKD", text.lower())
     return "".join(c for c in text if not unicodedata.combining(c))
 
-
 def contains(text, keyword):
     return re.search(r"\b" + re.escape(keyword), text) is not None
-
 
 def classify_category(text):
     for category, keywords in CATEGORY_RULES:
         if any(contains(text, k) for k in keywords):
             return category
     return "Política Fiscal y Presupuesto"
-
 
 def detect_location(text):
     for key, name, region, lat, lng in KNOWN_LOCATIONS:
@@ -118,7 +115,6 @@ def detect_location(text):
             return loc
     _, name, region, lat, lng = DEFAULT_LOCATION
     return name, region, lat, lng
-
 
 def relocate_automated(items):
     """Recalcula ubicación y eje de las novedades automáticas con las reglas vigentes."""
@@ -131,17 +127,14 @@ def relocate_automated(items):
         item.update(locationName=name, region=region, lat=lat, lng=lng, category=category,
                     tags=["Automatizado", category, region])
 
-
 def clean_html(raw_html):
     return re.sub(r"<.*?>", "", raw_html or "").replace("&nbsp;", " ").strip()
-
 
 def load_existing_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
-
 
 def main():
     items = load_existing_data()
@@ -154,7 +147,6 @@ def main():
     for query in SEARCH_QUERIES:
         rss_url = f"https://news.google.com/rss/search?q={quote_plus(query)}&hl=es-419&gl=AR&ceid=AR:es-419"
         feed = feedparser.parse(rss_url)
-
         for entry in feed.entries[:MAX_POR_CONSULTA]:
             url = entry.get("link")
             title = entry.get("title", "").strip()
@@ -204,7 +196,6 @@ def main():
         json.dump(items, f, ensure_ascii=False, indent=2)
 
     print(f"Relevamiento finalizado. Se agregaron {new_count} novedades al mapa.")
-
 
 if __name__ == "__main__":
     main()
