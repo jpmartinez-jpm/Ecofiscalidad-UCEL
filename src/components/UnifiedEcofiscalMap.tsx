@@ -61,7 +61,7 @@ interface UnifiedEcofiscalMapProps {
   onApplyFilterToSearch: (provinceId: string, localityId?: string) => void;
 }
 
-type MapTileStyle = 'topo' | 'light' | 'osm';
+type MapTileStyle = 'argenmap' | 'gris' | 'topo';
 type LayerMode = 'all' | 'municipios' | 'provincias' | 'novedades';
 
 const GITHUB_REPO_URL = 'https://github.com/jpmartinez-jpm/Ecofiscalidad-UCEL';
@@ -131,7 +131,7 @@ export const UnifiedEcofiscalMap: React.FC<UnifiedEcofiscalMapProps> = ({
   const markersDictionaryRef = useRef<Record<number, L.CircleMarker>>({});
   const localityMarkersRef = useRef<Record<string, L.Marker>>({});
 
-  const [tileStyle, setTileStyle] = useState<MapTileStyle>('osm');
+  const [tileStyle, setTileStyle] = useState<MapTileStyle>('argenmap');
   const [layerMode, setLayerMode] = useState<LayerMode>('all');
   // Con zoom de país los pines se muestran como puntos con el número; los nombres aparecen al acercarse.
   const [zoom, setZoom] = useState(4.5);
@@ -227,29 +227,26 @@ export const UnifiedEcofiscalMap: React.FC<UnifiedEcofiscalMapProps> = ({
     syncWithGithub();
   }, []);
 
+  // Mapas base del Instituto Geográfico Nacional (Argenmap): oficiales, gratuitos y sin clave.
+  // Los servidores de OpenStreetMap bloquean parte de las teselas a sitios como este y CARTO pide clave.
+  const IGN_TMS = 'https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/';
+  const IGN_ATRIBUCION =
+    '<a href="https://www.ign.gob.ar/AreaServicios/Argenmap/Introduccion" target="_blank" rel="noopener noreferrer">Argenmap · Instituto Geográfico Nacional</a> + &copy; OpenStreetMap';
+
   const getTileUrl = (style: MapTileStyle) => {
     switch (style) {
       case 'topo':
         return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-      case 'light':
-        return 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-      case 'osm':
+      case 'gris':
+        return `${IGN_TMS}mapabase_gris@EPSG%3A3857@png/{z}/{x}/{-y}.png`;
+      case 'argenmap':
       default:
-        return 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+        return `${IGN_TMS}capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png`;
     }
   };
 
-  const getTileAttribution = (style: MapTileStyle) => {
-    switch (style) {
-      case 'topo':
-        return 'Relieve &copy; Esri · Límites IGN';
-      case 'light':
-        return '&copy; CARTO &copy; OpenStreetMap · Límites IGN';
-      case 'osm':
-      default:
-        return '&copy; OpenStreetMap · Límites IGN';
-    }
-  };
+  const getTileAttribution = (style: MapTileStyle) =>
+    style === 'topo' ? 'Relieve &copy; Esri · Límites IGN' : IGN_ATRIBUCION;
 
   const findMatchingProvince = (ignName: string): Province | undefined => {
     const n = normalizeName(nombreProvinciaDesdeIgn(ignName));
@@ -274,7 +271,7 @@ export const UnifiedEcofiscalMap: React.FC<UnifiedEcofiscalMapProps> = ({
 
     const baseTile = L.tileLayer(getTileUrl(tileStyle), {
       attribution: getTileAttribution(tileStyle),
-      maxZoom: 19,
+      maxZoom: 18,
     }).addTo(map);
 
     // Delegación de eventos dentro de los popups
@@ -316,7 +313,16 @@ export const UnifiedEcofiscalMap: React.FC<UnifiedEcofiscalMapProps> = ({
 
   useEffect(() => {
     if (!tileLayerRef.current) return;
-    tileLayerRef.current.setUrl(getTileUrl(tileStyle));
+    const capa = tileLayerRef.current;
+    const anterior = capa.getAttribution?.();
+    const nueva = getTileAttribution(tileStyle);
+    const ctl = leafletMapRef.current?.attributionControl as L.Control.Attribution | undefined;
+    if (ctl && anterior !== nueva) {
+      if (anterior) ctl.removeAttribution(anterior);
+      ctl.addAttribution(nueva);
+      capa.options.attribution = nueva;
+    }
+    capa.setUrl(getTileUrl(tileStyle));
   }, [tileStyle]);
 
   // Polígonos provinciales del IGN, sombreados según la cantidad de fichas relevadas
@@ -715,9 +721,9 @@ export const UnifiedEcofiscalMap: React.FC<UnifiedEcofiscalMapProps> = ({
             <div className="ml-2 pl-2 border-l border-slate-700 flex items-center gap-1">
               {(
                 [
-                  ['osm', <Globe key="g" className="w-3.5 h-3.5" />, 'OpenStreetMap'],
+                  ['argenmap', <Globe key="g" className="w-3.5 h-3.5" />, 'Argenmap (IGN)'],
                   ['topo', <Mountain key="m" className="w-3.5 h-3.5" />, 'Relieve (Esri)'],
-                  ['light', <MapIcon key="l" className="w-3.5 h-3.5" />, 'Mapa claro (CARTO)'],
+                  ['gris', <MapIcon key="l" className="w-3.5 h-3.5" />, 'Mapa gris (IGN)'],
                 ] as [MapTileStyle, React.ReactNode, string][]
               ).map(([estilo, icono, titulo]) => (
                 <button
