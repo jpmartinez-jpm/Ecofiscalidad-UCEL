@@ -23,8 +23,9 @@ export const ComplianceInsights: React.FC = () => {
     <section id="metodologia" className="py-16 md:py-24 bg-white border-b border-slate-200 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
-          <div className="text-xs font-semibold tracking-wider uppercase text-emerald-800 mb-2">Metodología</div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-balance">Cómo leer el relevamiento</h2>
+          <div aria-hidden="true" className="h-[3px] w-[92px] bg-verde-ucel mb-4" />
+          <div className="text-xs font-semibold tracking-wider uppercase text-fcjs-700 mb-2">Metodología</div>
+          <h2 className="text-3xl md:text-4xl font-medium text-ucel-800 tracking-tight text-balance">Cómo leer el relevamiento</h2>
           <p className="mt-3 text-base md:text-lg text-slate-600 leading-relaxed">
             Un instrumento ecofiscal es una norma con contenido financiero público (ingreso, gasto, fondo, presupuesto o deuda) y finalidad
             ambiental. Cada ficha se clasifica en una de siete familias y lleva su estado normativo y el tipo de fuente con que se verificó.
@@ -64,7 +65,7 @@ export const ComplianceInsights: React.FC = () => {
           <div className="space-y-4">
             <h3 className="text-base font-bold text-slate-900">Verificación</h3>
             <p className="flex items-start gap-2 text-sm text-slate-700">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-ucel-600 shrink-0 mt-0.5" />
               <span>
                 <strong>{STATS.fuenteOficial}</strong> fichas se cotejaron con el texto oficial (boletín oficial, legislatura, digesto o sitio de
                 gobierno).

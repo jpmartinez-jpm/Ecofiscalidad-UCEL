@@ -47,7 +47,7 @@ export const TIPO_COLOR: Record<string, string> = {
 export const ESTADOS: string[] = META.estados;
 
 export const ESTADO_STYLE: Record<string, string> = {
-  vigente: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  vigente: 'bg-green-50 text-green-800 border-green-200',
   'parcialmente vigente': 'bg-amber-50 text-amber-800 border-amber-200',
   'sin reglamentar': 'bg-amber-50 text-amber-800 border-amber-200',
   suspendido: 'bg-rose-50 text-rose-800 border-rose-200',

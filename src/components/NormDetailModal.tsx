@@ -47,7 +47,7 @@ export const NormDetailModal: React.FC<NormDetailModalProps> = ({ norm, onClose 
         {/* Encabezado */}
         <div className="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-200 flex items-center justify-between gap-3 z-10">
           <div className="flex items-center gap-2 min-w-0 text-xs text-slate-500">
-            <MapPin className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+            <MapPin className="w-3.5 h-3.5 text-ucel-700 shrink-0" />
             <span className="font-semibold text-slate-700 truncate">{lugar}</span>
             <span className="text-slate-300">·</span>
             <span className="shrink-0">Nivel {NIVEL_LABEL[norm.nivel] || norm.nivel}</span>
@@ -65,8 +65,8 @@ export const NormDetailModal: React.FC<NormDetailModalProps> = ({ norm, onClose 
         {/* Cuerpo */}
         <div className="p-6 md:p-8 space-y-6">
           <div>
-            <div className="font-mono text-xs font-semibold text-emerald-800 mb-2 break-words">{norm.norma}</div>
-            <h2 id="ficha-titulo" className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">
+            <div className="font-mono text-xs font-semibold text-ucel-800 mb-2 break-words">{norm.norma}</div>
+            <h2 id="ficha-titulo" className="text-xl md:text-2xl font-medium text-ucel-800 leading-snug">
               {norm.titulo}
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
@@ -82,7 +82,7 @@ export const NormDetailModal: React.FC<NormDetailModalProps> = ({ norm, onClose 
               {norm.verificacion && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-slate-200 text-slate-600">
                   {norm.verificacion === 'fuente oficial' ? (
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                    <CheckCircle className="w-3.5 h-3.5 text-ucel-600" />
                   ) : (
                     <FileText className="w-3.5 h-3.5 text-slate-400" />
                   )}

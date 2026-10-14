@@ -229,7 +229,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
   const getCategoryBadgeClass = (category: string) => {
     const map: Record<string, string> = {
       'Impuesto al Carbono y Emisiones': 'bg-teal-50 text-teal-700 border-teal-200',
-      'Tasas Municipales y Residuos': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      'Tasas Municipales y Residuos': 'bg-ucel-50 text-ucel-700 border-ucel-200',
       'Ecotasas y Turismo': 'bg-amber-50 text-amber-700 border-amber-200',
       'Incentivos y Energías Renovables': 'bg-sky-50 text-sky-700 border-sky-200',
       'Vialidad y Movilidad Urbana': 'bg-indigo-50 text-indigo-700 border-indigo-200',
@@ -308,10 +308,11 @@ export const BuscadorEcofiscalidad: React.FC = () => {
     <section id="buscador-ecofiscalidad" className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200">
       {/* Encabezado Institucional */}
       <div className="text-center max-w-3xl mx-auto mb-10">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-emerald-100 text-emerald-800 mb-3">
-          <Leaf className="w-3.5 h-3.5 text-emerald-700" /> Observatorio de Ecofiscalidad • UCEL
+        <div aria-hidden="true" className="h-[3px] w-[92px] bg-verde-ucel mx-auto mb-4" />
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-fcjs-50 text-fcjs-700 mb-3">
+          <Leaf className="w-3.5 h-3.5 text-fcjs-700" /> Observatorio de Ecofiscalidad • UCEL
         </span>
-        <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight text-balance">
+        <h2 className="text-3xl sm:text-4xl font-medium text-ucel-800 tracking-tight text-balance">
           Motor de Búsqueda y Novedades Ecofiscales
         </h2>
         <p className="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed text-pretty">
@@ -331,7 +332,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Buscar por palabra clave (ej. ecotasa, carbono, pago por generación, RIGI, residuos, ISS, Bariloche)..."
-            className="w-full pl-12 pr-24 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition text-sm sm:text-base"
+            className="w-full pl-12 pr-24 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-ucel-600 focus:border-transparent transition text-sm sm:text-base"
           />
           {searchInput && (
             <button
@@ -354,7 +355,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block p-2.5"
+              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-ucel-600 focus:border-ucel-600 block p-2.5"
             >
               <option value="ALL">Todos los instrumentos</option>
               <option value="Impuesto al Carbono y Emisiones">Impuesto al Carbono y Emisiones</option>
@@ -374,7 +375,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             <select
               value={filterRegion}
               onChange={(e) => setFilterRegion(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block p-2.5"
+              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-ucel-600 focus:border-ucel-600 block p-2.5"
             >
               <option value="ALL">Todas las jurisdicciones</option>
               <option value="Argentina">Argentina (Nacional / Municipal)</option>
@@ -392,7 +393,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block p-2.5"
+              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-ucel-600 focus:border-ucel-600 block p-2.5"
             >
               <option value="ALL">Todos los formatos</option>
               <option value="Jurisprudencia y Prensa">Jurisprudencia y Novedad Periodística</option>
@@ -410,7 +411,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value as any)}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-emerald-600 focus:border-emerald-600 block p-2.5"
+              className="w-full bg-slate-50 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-ucel-600 focus:border-ucel-600 block p-2.5"
             >
               <option value="newest">Más recientes primero</option>
               <option value="oldest">Más antiguos primero</option>
@@ -436,7 +437,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
               key={item.tag}
               type="button"
               onClick={() => setSearchInput(item.tag)}
-              className="text-xs bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 px-2.5 py-1 rounded-md transition border border-transparent hover:border-emerald-200"
+              className="text-xs bg-slate-100 hover:bg-ucel-50 hover:text-ucel-700 text-slate-600 px-2.5 py-1 rounded-md transition border border-transparent hover:border-ucel-200"
             >
               {item.label}
             </button>
@@ -453,14 +454,14 @@ export const BuscadorEcofiscalidad: React.FC = () => {
           <button
             type="button"
             onClick={resetAllFilters}
-            className="text-xs font-medium text-slate-500 hover:text-emerald-700 flex items-center gap-1 transition"
+            className="text-xs font-medium text-slate-500 hover:text-ucel-700 flex items-center gap-1 transition"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Restablecer filtros
           </button>
           <button
             type="button"
             onClick={exportToCSV}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-300 hover:border-emerald-600 text-slate-700 hover:text-emerald-700 rounded-lg text-xs font-medium shadow-2xs transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-300 hover:border-ucel-600 text-slate-700 hover:text-ucel-700 rounded-lg text-xs font-medium shadow-2xs transition"
           >
             <Download className="w-3.5 h-3.5" /> Exportar selección (CSV)
           </button>
@@ -475,7 +476,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
             return (
               <article
                 key={item.id}
-                className="bg-white rounded-xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-emerald-300 transition flex flex-col justify-between p-6"
+                className="bg-white rounded-xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-ucel-300 transition flex flex-col justify-between p-6"
               >
                 <div>
                   {/* Meta superior */}
@@ -491,14 +492,14 @@ export const BuscadorEcofiscalidad: React.FC = () => {
                   {/* Región y Tipo */}
                   <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
                     <span className="font-medium text-slate-700 flex items-center gap-1">
-                      <Globe2 className="w-3.5 h-3.5 text-emerald-600" /> {item.region}
+                      <Globe2 className="w-3.5 h-3.5 text-ucel-600" /> {item.region}
                     </span>
                     <span>•</span>
                     <span>{item.type}</span>
                   </div>
 
                   {/* Título */}
-                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug hover:text-emerald-700 transition">
+                  <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug hover:text-ucel-700 transition">
                     <a href={item.url} target="_blank" rel="noopener noreferrer">
                       {item.title}
                     </a>
@@ -517,7 +518,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
                       <span
                         key={tag}
                         onClick={() => setSearchInput(tag)}
-                        className="text-[11px] bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer px-2 py-0.5 rounded transition"
+                        className="text-[11px] bg-slate-100 text-slate-600 hover:bg-ucel-50 hover:text-ucel-700 cursor-pointer px-2 py-0.5 rounded transition"
                       >
                         #{tag}
                       </span>
@@ -533,7 +534,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-emerald-600 hover:text-emerald-800 inline-flex items-center gap-1 shrink-0"
+                      className="font-semibold text-ucel-600 hover:text-ucel-800 inline-flex items-center gap-1 shrink-0"
                     >
                       Consultar <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -556,7 +557,7 @@ export const BuscadorEcofiscalidad: React.FC = () => {
           <button
             type="button"
             onClick={resetAllFilters}
-            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition"
+            className="px-4 py-2 bg-ucel-600 hover:bg-ucel-700 text-white text-sm font-medium rounded-lg transition"
           >
             Ver todo el repositorio
           </button>

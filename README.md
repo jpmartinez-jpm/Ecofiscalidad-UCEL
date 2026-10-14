@@ -13,6 +13,10 @@ Releva los instrumentos fiscales con fines ambientales de la Nación, las provin
 - **Novedades**: noticias sobre ecofiscalidad que un proceso automático reúne cada semana.
 - **Doctrina**: buscador de artículos y documentos de referencia.
 
+## Estilo visual
+
+El sitio sigue el manual de marca del proyecto, armado a partir de la identidad del sitio de la UCEL: encabezado y pie en azul institucional (`ucel-800`, #022056) con el logo de la UCEL, tipografía Poppins, la barra verde (`verde-ucel`) sobre cada título y el violeta de la Facultad de Ciencias Jurídicas y Sociales (`fcjs-700`, #802C95) como acento. Los colores, las fuentes y las esquinas están en `src/index.css`. El logo y los íconos están en `public/`; `ucel-logo-blanco.png` trae el fondo azul, así que va solo sobre fondo azul.
+
 ## Archivos de datos
 
 | Archivo | Qué contiene | Quién lo actualiza |

@@ -1,9 +1,70 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
+/*
+ * Marca Observatorio Ecofiscal UCEL (manual de marca del proyecto, tomado del sitio ucel.edu.ar).
+ * - ucel: azul institucional. ucel-800 = #022056, el azul del encabezado, del pie y del fondo del logo.
+ * - fcjs: violeta de la Facultad de Ciencias Jurídicas y Sociales. fcjs-700 = #802C95. Acento del proyecto:
+ *   antetítulos, selección en el mapa y enlaces destacados.
+ * - verde-ucel: la barra de 3 × 92 px sobre los títulos de sección; sobre azul también sirve como texto.
+ * - Tipografía Poppins (textos) y Roboto Mono (normas y datos).
+ * - Esquinas casi rectas (5 px), como los botones del sitio de la UCEL; rounded-br-hoja es la esquina de "hoja"
+ *   de los bloques de facultad del sitio, para uno o dos bloques destacados.
+ */
+@theme {
+  --font-sans: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --color-ucel-50: #eef2f9;
+  --color-ucel-100: #dce4f2;
+  --color-ucel-200: #b9c8e4;
+  --color-ucel-300: #8ea5d0;
+  --color-ucel-400: #5e7db8;
+  --color-ucel-500: #3a5c9e;
+  --color-ucel-600: #244585;
+  --color-ucel-700: #123574;
+  --color-ucel-800: #022056;
+  --color-ucel-900: #011845;
+  --color-ucel-950: #010f2e;
+
+  --color-fcjs-50: #f8f0fa;
+  --color-fcjs-100: #f0dff4;
+  --color-fcjs-200: #e0bfe9;
+  --color-fcjs-300: #cb94d9;
+  --color-fcjs-400: #b266c5;
+  --color-fcjs-500: #9a47af;
+  --color-fcjs-600: #8b37a1;
+  --color-fcjs-700: #802c95;
+  --color-fcjs-800: #66217a;
+  --color-fcjs-900: #4d195c;
+  --color-fcjs-950: #2f0e39;
+
+  --color-verde-ucel: #05e06b;
+  --color-petroleo: #044162;
+
+  --radius-sm: 2px;
+  --radius-md: 5px;
+  --radius-lg: 5px;
+  --radius-xl: 5px;
+  --radius-2xl: 6px;
+  --radius-3xl: 8px;
+  --radius-hoja: 56px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
+  }
+  .leaflet-container {
+    font-family: var(--font-sans);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-fcjs-700);
+    outline-offset: 2px;
+  }
+  header :focus-visible,
+  footer :focus-visible {
+    outline-color: #ffffff;
   }
 }

@@ -151,8 +151,9 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
     <section id="buscador" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200 scroll-mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-10">
-          <div className="text-xs font-semibold tracking-wider uppercase text-emerald-800 mb-2">Catálogo del relevamiento</div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight text-balance">
+          <div aria-hidden="true" className="h-[3px] w-[92px] bg-verde-ucel mb-4" />
+          <div className="text-xs font-semibold tracking-wider uppercase text-fcjs-700 mb-2">Catálogo del relevamiento</div>
+          <h2 className="text-3xl md:text-4xl font-medium text-ucel-800 tracking-tight text-balance">
             Instrumentos ecofiscales de la Nación, las provincias y los municipios
           </h2>
           <p className="mt-3 text-base md:text-lg text-slate-600 leading-relaxed">
@@ -170,7 +171,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar por norma, tema o ciudad: residuos, 27.424, Rosario, ecotasa…"
-              className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-12 pr-10 py-3 text-sm md:text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 focus:bg-white transition-all font-medium"
+              className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-12 pr-10 py-3 text-sm md:text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-ucel-600 focus:border-ucel-600 focus:bg-white transition-all font-medium"
               aria-label="Buscar en el relevamiento"
             />
             {searchTerm && (
@@ -190,7 +191,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               <div className="flex items-center justify-between mb-2.5">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Tipo de instrumento</span>
                 {tipos.length > 0 && (
-                  <button type="button" onClick={() => setTipos([])} className="text-xs text-emerald-700 hover:text-emerald-900 font-medium">
+                  <button type="button" onClick={() => setTipos([])} className="text-xs text-ucel-700 hover:text-ucel-900 font-medium">
                     Quitar selección ({tipos.length})
                   </button>
                 )}
@@ -225,7 +226,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   <select
                     value={juris}
                     onChange={(e) => cambiarJuris(e.target.value)}
-                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-ucel-600"
                   >
                     <option value="all">Todas (Nación y 24 jurisdicciones)</option>
                     <option value="nacion">Nación</option>
@@ -246,7 +247,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                         setLocalidad(e.target.value);
                         onSelectLocality(e.target.value, provinciaActiva.id);
                       }}
-                      className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                      className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-ucel-600"
                     >
                       <option value="all">Todos</option>
                       {provinciaActiva.localities.map((l) => (
@@ -263,7 +264,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   <select
                     value={nivel}
                     onChange={(e) => setNivel(e.target.value as Nivel)}
-                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-ucel-600"
                   >
                     <option value="all">Todos</option>
                     <option value="nacional">Nacional</option>
@@ -277,7 +278,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                   <select
                     value={estado}
                     onChange={(e) => setEstado(e.target.value)}
-                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 normal-case tracking-normal font-medium focus:outline-none focus:ring-1 focus:ring-ucel-600"
                   >
                     <option value="all">Todos</option>
                     {ESTADOS.map((e) => (
@@ -313,7 +314,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               <select
                 value={orden}
                 onChange={(e) => setOrden(e.target.value as Orden)}
-                className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-ucel-600"
               >
                 <option value="jurisdiccion">Por jurisdicción</option>
                 <option value="titulo">Alfabético</option>
@@ -381,9 +382,9 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                         </span>
                       </div>
 
-                      <div className="font-mono text-[11px] text-emerald-800 font-semibold mb-1.5 line-clamp-2">{x.norma}</div>
+                      <div className="font-mono text-[11px] text-ucel-800 font-semibold mb-1.5 line-clamp-2">{x.norma}</div>
 
-                      <h3 className="text-base font-semibold text-slate-900 leading-snug group-hover:text-emerald-900 transition-colors">{x.titulo}</h3>
+                      <h3 className="text-base font-semibold text-slate-900 leading-snug group-hover:text-ucel-900 transition-colors">{x.titulo}</h3>
 
                       <div className="flex items-center gap-1.5 text-xs text-slate-600 mt-2 mb-3">
                         <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
@@ -399,7 +400,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                     <div>
                       <div className="pt-3 border-t border-slate-100 mb-3 text-[11px]">
                         {x.verificacion === 'fuente oficial' ? (
-                          <span className="inline-flex items-center gap-1 text-emerald-700 font-medium">
+                          <span className="inline-flex items-center gap-1 text-ucel-700 font-medium">
                             <CheckCircle className="w-3.5 h-3.5" /> Texto oficial consultado
                           </span>
                         ) : necesitaCotejo(x) ? (
