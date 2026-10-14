@@ -26,6 +26,9 @@ SEARCH_QUERIES = [
 
 # Las claves más específicas van primero: se usa la primera que aparezca en el texto.
 KNOWN_LOCATIONS = [
+    ("iruya", "Iruya, Salta, Argentina", "Argentina", -22.7906, -65.2142),
+    ("salta", "Salta, Argentina", "Argentina", -24.7821, -65.4232),
+    ("wanda", "Wanda, Misiones, Argentina", "Argentina", -25.9667, -54.5667),
     ("bariloche", "San Carlos de Bariloche, Río Negro, Argentina", "Argentina", -41.1335, -71.3103),
     ("iguazu", "Puerto Iguazú, Misiones, Argentina", "Argentina", -25.5991, -54.5735),
     ("misiones", "Posadas, Misiones, Argentina", "Argentina", -27.3671, -55.8961),
@@ -39,6 +42,8 @@ KNOWN_LOCATIONS = [
     ("mar del plata", "Mar del Plata, Buenos Aires, Argentina", "Argentina", -38.0055, -57.5426),
     ("buenos aires", "Buenos Aires, Argentina", "Argentina", -34.6037, -58.3816),
     ("ciudad de mexico", "Ciudad de México, México", "Latinoamérica", 19.4326, -99.1332),
+    ("nuevo leon", "Monterrey, Nuevo León, México", "Latinoamérica", 25.6866, -100.3161),
+    ("monterrey", "Monterrey, Nuevo León, México", "Latinoamérica", 25.6866, -100.3161),
     ("mexico", "Ciudad de México, México", "Latinoamérica", 19.4326, -99.1332),
     ("bogota", "Bogotá, Colombia", "Latinoamérica", 4.7110, -74.0721),
     ("colombia", "Bogotá, Colombia", "Latinoamérica", 4.7110, -74.0721),
@@ -52,6 +57,10 @@ KNOWN_LOCATIONS = [
     ("tres cantos", "Tres Cantos, Madrid, España", "España y UE", 40.6009, -3.7080),
     ("valladolid", "Valladolid, España", "España y UE", 41.6523, -4.7245),
     ("valencia", "Valencia, España", "España y UE", 39.4699, -0.3763),
+    ("errenteria", "Errenteria, Gipuzkoa, España", "España y UE", 43.3119, -1.8985),
+    ("pais vasco", "Vitoria-Gasteiz, País Vasco, España", "España y UE", 42.8467, -2.6716),
+    ("gipuzkoa", "San Sebastián, Gipuzkoa, España", "España y UE", 43.3183, -1.9812),
+    ("cataluna", "Barcelona, España", "España y UE", 41.3874, 2.1686),
     ("baleares", "Palma, Islas Baleares, España", "España y UE", 39.5696, 2.6502),
     ("madrid", "Madrid, España", "España y UE", 40.4168, -3.7038),
     ("espana", "Madrid, España", "España y UE", 40.4168, -3.7038),
@@ -63,6 +72,16 @@ KNOWN_LOCATIONS = [
     ("argentina", "Buenos Aires, Argentina (alcance nacional)", "Argentina", -34.6037, -58.3816),
 ]
 DEFAULT_LOCATION = KNOWN_LOCATIONS[-1]
+
+# Si no aparece ningún lugar concreto, se infiere el país por vocabulario típico.
+COUNTRY_HINTS = [
+    (["ayuntamiento", "comunidad autonoma", "ibi", "icio", "podemos", "psoe", "euros", "recogida", "recibos", "organica"],
+     ("Madrid, España", "España y UE", 40.4168, -3.7038)),
+    (["4t", "morena", "mdp", "samuel garcia", "congreso local", "tesoreria"],
+     ("Ciudad de México, México", "Latinoamérica", 19.4326, -99.1332)),
+    (["reais", "prefeitura"],
+     ("Brasilia, Brasil", "Latinoamérica", -15.7975, -47.8919)),
+]
 
 CATEGORY_RULES = [
     ("Ecotasas y Turismo", ["ecotasa", "turismo", "turista", "estancias turisticas"]),
@@ -94,8 +113,23 @@ def detect_location(text):
     for key, name, region, lat, lng in KNOWN_LOCATIONS:
         if contains(text, key):
             return name, region, lat, lng
+    for hints, loc in COUNTRY_HINTS:
+        if any(contains(text, h) for h in hints):
+            return loc
     _, name, region, lat, lng = DEFAULT_LOCATION
     return name, region, lat, lng
+
+
+def relocate_automated(items):
+    """Recalcula ubicación y eje de las novedades automáticas con las reglas vigentes."""
+    for item in items:
+        if "Automatizado" not in item.get("tags", []):
+            continue
+        text = normalize(f"{item['title']} {item.get('summary', '')}")
+        name, region, lat, lng = detect_location(text)
+        category = classify_category(text)
+        item.update(locationName=name, region=region, lat=lat, lng=lng, category=category,
+                    tags=["Automatizado", category, region])
 
 
 def clean_html(raw_html):
@@ -111,6 +145,7 @@ def load_existing_data():
 
 def main():
     items = load_existing_data()
+    relocate_automated(items)
     existing_urls = {item["url"] for item in items}
     existing_titles = {normalize(item["title"]) for item in items}
     next_id = max((item.get("id", 0) for item in items), default=0) + 1
