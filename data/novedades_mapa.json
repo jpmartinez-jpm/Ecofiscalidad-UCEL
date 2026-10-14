@@ -1,0 +1,278 @@
+[
+  {
+    "id": 1,
+    "title": "Nuevo impuesto al turismo en Argentina: expansión municipal de la Ecotasa pese al fallo de la Corte Suprema",
+    "date": "2026-10-14",
+    "region": "Argentina",
+    "locationName": "San Carlos de Bariloche, Río Negro, Argentina",
+    "lat": -41.1335,
+    "lng": -71.3103,
+    "category": "Ecotasas y Turismo",
+    "type": "Jurisprudencia y Prensa",
+    "source": "iProfesional / CSJN / Justicia de Río Negro",
+    "summary": "Proliferación de ecotasas turísticas en municipios argentinos (incluidos nuevos cobros en Misiones) frente al fallo que declaró inconstitucional la ecotasa cobrada a turistas en Bariloche.",
+    "tags": [
+      "Ecotasa",
+      "Turismo",
+      "Bariloche",
+      "Misiones",
+      "Corte Suprema",
+      "Municipios"
+    ],
+    "url": "https://www.iprofesional.com/impuestos/446306-nuevo-impuesto-turismo-epidemia-argentina-contra-fallo-corte-suprema"
+  },
+  {
+    "id": 2,
+    "title": "La tributación medioambiental en Latinoamérica: avances, desafíos y perspectivas",
+    "date": "2026-01-31",
+    "region": "Latinoamérica",
+    "locationName": "Bogotá, Colombia",
+    "lat": 4.711,
+    "lng": -74.0721,
+    "category": "Política Fiscal y Presupuesto",
+    "type": "Paper Académico",
+    "source": "Revista Colombiana de Contabilidad (ASFACOP)",
+    "summary": "Evolución de impuestos, tasas y contribuciones ecológicas en México, Chile, Colombia y Brasil según datos de OCDE y CEPAL.",
+    "tags": [
+      "Tributación verde",
+      "Latinoamérica",
+      "OCDE",
+      "CEPAL"
+    ],
+    "url": "https://doi.org/10.56241/asf.v14n26.359"
+  },
+  {
+    "id": 3,
+    "title": "Environmental Taxes and Emissions: The Moderating Role of the Shadow Economy, AI, and ICT in OECD Countries",
+    "date": "2026-02-15",
+    "region": "Internacional",
+    "locationName": "París, Francia (OCDE)",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "category": "Impuesto al Carbono y Emisiones",
+    "type": "Paper Académico",
+    "source": "Journal of Tax Reform (Saleem & Xu)",
+    "summary": "Cómo los impuestos ambientales interactúan con la IA, las TIC y la economía informal en la reducción de emisiones de CO2 en países de la OCDE.",
+    "tags": [
+      "IA",
+      "OCDE",
+      "Carbono",
+      "Emisiones"
+    ],
+    "url": "https://taxreform.ru/fileadmin/user_upload/site_15907/2026/02-Saleem_Xu-266-287.pdf"
+  },
+  {
+    "id": 4,
+    "title": "Urban road pricing reframed: a critical review of imperativeness and relevance for the 21st century cities",
+    "date": "2026-03-10",
+    "region": "Internacional",
+    "locationName": "Londres, Reino Unido",
+    "lat": 51.5072,
+    "lng": -0.1276,
+    "category": "Vialidad y Movilidad Urbana",
+    "type": "Paper Académico",
+    "source": "Taylor & Francis",
+    "summary": "Revisión crítica de los cargos por congestión urbana y peajes ambientales, con foco en equidad distributiva (caso Londres).",
+    "tags": [
+      "Movilidad",
+      "Cargos por congestión",
+      "Ciudades",
+      "Equidad"
+    ],
+    "url": "https://www.tandfonline.com/doi/full/10.1080/29941849.2026.2678064"
+  },
+  {
+    "id": 5,
+    "title": "Desafíos y soluciones en la implementación de la nueva tasa de residuos municipales en España (Ley 7/2022)",
+    "date": "2025-04-01",
+    "region": "España y UE",
+    "locationName": "Madrid, España",
+    "lat": 40.4168,
+    "lng": -3.7038,
+    "category": "Tasas Municipales y Residuos",
+    "type": "Paper Académico",
+    "source": "Revista de Estudios de la Administración Local y Autonómica (INAP)",
+    "summary": "Adaptación municipal a la Ley 7/2022 (Barcelona, Badajoz, Tres Cantos, Valladolid) frente a modelos de pago por generación en Flandes y San Francisco.",
+    "tags": [
+      "Pago por generación",
+      "Residuos",
+      "Ley 7/2022",
+      "Municipios"
+    ],
+    "url": "https://doi.org/10.24965/reala.11494"
+  },
+  {
+    "id": 6,
+    "title": "Caso de estudio: Impuesto al Carbono en Argentina y etiquetado de eficiencia energética",
+    "date": "2025-10-15",
+    "region": "Argentina",
+    "locationName": "Buenos Aires, Argentina (alcance nacional)",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "category": "Impuesto al Carbono y Emisiones",
+    "type": "Informe Técnico",
+    "source": "FLACSO / Ambiente y Comercio",
+    "summary": "Efectividad, barreras y resultados distributivos del impuesto a los combustibles líquidos y al dióxido de carbono en Argentina.",
+    "tags": [
+      "Carbono",
+      "Combustibles",
+      "Argentina",
+      "Eficiencia energética"
+    ],
+    "url": "https://ambienteycomercio.org/wp-content/uploads/2025/10/14.-Impuesto-al-Carbono-en-Argentina-1.pdf"
+  },
+  {
+    "id": 7,
+    "title": "Informe Ambiental 2025: presupuesto ambiental, Fondo de Bosques (Ley 26.331) e impacto del RIGI",
+    "date": "2025-05-10",
+    "region": "Argentina",
+    "locationName": "Buenos Aires, Argentina (alcance nacional)",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "category": "Política Fiscal y Presupuesto",
+    "type": "Informe Técnico",
+    "source": "FARN",
+    "summary": "Ajuste presupuestario ambiental, Fondo Nacional de Bosques Nativos y efectos del RIGI (Ley 27.742).",
+    "tags": [
+      "RIGI",
+      "Presupuesto",
+      "Fondo de Bosques",
+      "Ley 27.742"
+    ],
+    "url": "https://farn.org.ar/wp-content/uploads/2025/05/IAF_2025_WEB.pdf"
+  },
+  {
+    "id": 8,
+    "title": "Impuestos verdes: herramientas fiscales para la mitigación del cambio climático",
+    "date": "2024-09-01",
+    "region": "Latinoamérica",
+    "locationName": "Ciudad de México, México",
+    "lat": 19.4326,
+    "lng": -99.1332,
+    "category": "Impuesto al Carbono y Emisiones",
+    "type": "Informe Técnico",
+    "source": "Congreso de la Ciudad de México",
+    "summary": "Modernización de impuestos ecológicos urbanos alineados con la Taxonomía Sostenible de México.",
+    "tags": [
+      "Impuestos verdes",
+      "México",
+      "Carbono"
+    ],
+    "url": "https://www.congresocdmx.gob.mx/archivo-46fb1ff1836e45623f9ebe41245b729306ca7c3e.pdf"
+  },
+  {
+    "id": 9,
+    "title": "Política pública ambiental y efectos distributivos de los impuestos a los combustibles en México",
+    "date": "2024-07-15",
+    "region": "Latinoamérica",
+    "locationName": "Pachuca, Hidalgo, México",
+    "lat": 20.1011,
+    "lng": -98.7591,
+    "category": "Impuesto al Carbono y Emisiones",
+    "type": "Paper Académico",
+    "source": "Universidad Autónoma del Estado de Hidalgo",
+    "summary": "Articulación entre políticas ambientales y fiscales: impuestos a combustibles fósiles, licencias de emisión y subsidios a tecnologías limpias.",
+    "tags": [
+      "Combustibles",
+      "México",
+      "Efectos distributivos"
+    ],
+    "url": "https://repository.uaeh.edu.mx/books/199/pp.pdf"
+  },
+  {
+    "id": 10,
+    "title": "II Jornadas sobre la Reforma Ambiental de las Haciendas Locales",
+    "date": "2023-03-20",
+    "region": "España y UE",
+    "locationName": "Valencia, España",
+    "lat": 39.4699,
+    "lng": -0.3763,
+    "category": "Tasas Municipales y Residuos",
+    "type": "Informe Técnico",
+    "source": "Instituto de Estudios Fiscales (IEF)",
+    "summary": "Impuesto sobre emisiones de CO2 de vehículos en Cataluña y Valencia, bonificaciones en IBI e ICIO por energía solar e impuestos a plásticos.",
+    "tags": [
+      "Haciendas Locales",
+      "IBI",
+      "ICIO",
+      "Plásticos"
+    ],
+    "url": "https://www.ief.es/docs/destacados/publicaciones/documentos_trabajo/2023_03.pdf"
+  },
+  {
+    "id": 11,
+    "title": "Tributación ecológica municipal: incentivos del Impuesto sobre Servicios (ISS) en Brasil",
+    "date": "2023-06-10",
+    "region": "Latinoamérica",
+    "locationName": "Brasilia, Brasil",
+    "lat": -15.7975,
+    "lng": -47.8919,
+    "category": "Incentivos y Energías Renovables",
+    "type": "Paper Académico",
+    "source": "SciELO Brasil",
+    "summary": "Incentivos fiscales del ISS en municipios brasileños de más de 500.000 habitantes vinculados a los ODS.",
+    "tags": [
+      "ISS",
+      "Brasil",
+      "Municipios",
+      "ODS"
+    ],
+    "url": "https://www.scielo.br/j/vd/a/qV4Jfw5TGjQj6hzmRpQ4Zvz/?lang=es&format=pdf"
+  },
+  {
+    "id": 12,
+    "title": "Energía solar en Argentina: aspectos impositivos y legales (Ley 27.424)",
+    "date": "2023-12-28",
+    "region": "Argentina",
+    "locationName": "Mendoza, Argentina",
+    "lat": -32.8895,
+    "lng": -68.8458,
+    "category": "Incentivos y Energías Renovables",
+    "type": "Paper Académico",
+    "source": "Biblioteca Digital UNCUYO",
+    "summary": "Implicancias legales e impositivas de la generación distribuida solar: Ley 27.424 y Decretos 1.007/2019 y 70/2023.",
+    "tags": [
+      "Energía solar",
+      "Renovables",
+      "Ley 27.424"
+    ],
+    "url": "https://bdigital.uncu.edu.ar/objetos_digitales/21164/energa-solar-en-argentina-aspectos-impositivos-y-legales.pdf"
+  },
+  {
+    "id": 13,
+    "title": "Recuperación pospandemia sostenible y con bajas emisiones en Argentina: política fiscal ambiental",
+    "date": "2022-02-09",
+    "region": "Argentina",
+    "locationName": "Buenos Aires, Argentina (alcance nacional)",
+    "lat": -34.6037,
+    "lng": -58.3816,
+    "category": "Política Fiscal y Presupuesto",
+    "type": "Informe Técnico",
+    "source": "CEPAL",
+    "summary": "Diseño de instrumentos de política fiscal ambiental en Argentina para reducir la huella de carbono.",
+    "tags": [
+      "CEPAL",
+      "Argentina",
+      "Política fiscal"
+    ],
+    "url": "https://www.cepal.org/es/publicaciones/47736-oportunidades-recuperacion-pospandemia-mas-sostenible-bajas-emisiones-carbono-la"
+  },
+  {
+    "id": 14,
+    "title": "Instrumentos económico-financieros para la gestión ambiental de bahías",
+    "date": "2022-04-01",
+    "region": "Latinoamérica",
+    "locationName": "Pinar del Río, Cuba",
+    "lat": 22.4175,
+    "lng": -83.6981,
+    "category": "Política Fiscal y Presupuesto",
+    "type": "Paper Académico",
+    "source": "Revista COODES",
+    "summary": "Fondos ambientales, cánones, bonificaciones a tecnologías limpias y contabilidad ambiental para ecosistemas costeros.",
+    "tags": [
+      "Fondos ambientales",
+      "Contabilidad ambiental"
+    ],
+    "url": "https://coodes.upr.edu.cu/index.php/coodes/article/view/490"
+  }
+]
