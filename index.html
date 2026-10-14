@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observatorio de Ecofiscalidad UCEL</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --muted: #64748b; --line: #e2e8f0;
+      --accent: #059669; --accent-dark: #047857; --dark: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 40px 16px; }
+    header { text-align: center; max-width: 760px; margin: 0 auto 28px; }
+    .pill { display: inline-block; padding: 4px 12px; border-radius: 999px; background: #d1fae5; color: #065f46;
+            font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+    h1 { font-size: clamp(26px, 4vw, 36px); margin: 12px 0 8px; letter-spacing: -.02em; }
+    header p { color: var(--muted); margin: 0; line-height: 1.5; }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+    .map-bar { background: var(--dark); color: #fff; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 8px;
+               align-items: center; justify-content: space-between; font-size: 14px; }
+    .map-bar button { background: #1e293b; color: #fff; border: 0; border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+    .map-bar button:hover { background: var(--accent); }
+    #ecofiscalMap { height: 460px; width: 100%; }
+    .legend { padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+    .filters { padding: 16px; display: grid; gap: 12px; grid-template-columns: 2fr 1.4fr 1fr 1fr auto; }
+    @media (max-width: 860px) { .filters { grid-template-columns: 1fr; } }
+    input, select, .btn { font: inherit; font-size: 14px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; color: var(--text); width: 100%; }
+    .btn { cursor: pointer; background: #f1f5f9; font-weight: 600; white-space: nowrap; }
+    .btn:hover { background: #e2e8f0; }
+    .status { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px; color: var(--muted); margin: 0 4px 16px; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card:hover { border-color: #6ee7b7; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+    .meta { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .badge { font-weight: 600; padding: 2px 8px; border-radius: 6px; color: #fff; }
+    .card h3 { font-size: 16px; line-height: 1.35; margin: 4px 0 8px; }
+    .card p { font-size: 13px; color: #475569; line-height: 1.5; margin: 0 0 12px; }
+    .loc { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; font-size: 12px; }
+    .actions button { background: #f1f5f9; border: 0; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-weight: 600; font-size: 12px; }
+    .actions button:hover { background: #d1fae5; color: var(--accent-dark); }
+    .actions a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .empty { text-align: center; padding: 40px; color: var(--muted); grid-column: 1 / -1; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="pill">Observatorio de Ecofiscalidad · UCEL</span>
+    <h1>Mapa interactivo y buscador de novedades</h1>
+    <p>Legislación, jurisprudencia, doctrina y noticias sobre tributación ambiental, ecotasas, impuestos al carbono y tasas de residuos, geolocalizadas y actualizadas automáticamente.</p>
+  </header>
+
+  <section class="panel">
+    <div class="map-bar">
+      <span>Cartografía ecofiscal</span>
+      <div>
+        <button data-focus="ARG">Argentina</button>
+        <button data-focus="LATAM">Latinoamérica</button>
+        <button data-focus="EU">España y UE</button>
+        <button data-focus="WORLD">Vista global</button>
+      </div>
+    </div>
+    <div id="ecofiscalMap"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="panel">
+    <div class="filters">
+      <input type="search" id="searchInput" placeholder="Buscar ciudad, ley o tributo (ej. Bariloche, carbono, residuos, RIGI)...">
+      <select id="filterCategory"><option value="ALL">Todos los ejes temáticos</option></select>
+      <select id="filterRegion">
+        <option value="ALL">Todas las regiones</option>
+        <option>Argentina</option><option>Latinoamérica</option><option>España y UE</option><option>Internacional</option>
+      </select>
+      <select id="sortOrder">
+        <option value="newest">Más recientes</option>
+        <option value="oldest">Más antiguos</option>
+        <option value="title">A–Z</option>
+      </select>
+      <button class="btn" id="resetBtn">Ver todos</button>
+    </div>
+  </section>
+
+  <div class="status">
+    <span>Mostrando <strong id="resultsCount">0</strong> novedades</span>
+    <span id="updatedAt"></span>
+  </div>
+  <div class="grid" id="resultsGrid"></div>
+</div>
+
+<script>
+  const CATEGORIES = {
+    "Ecotasas y Turismo": "#d97706",
+    "Tasas Municipales y Residuos": "#059669",
+    "Impuesto al Carbono y Emisiones": "#0d9488",
+    "Incentivos y Energías Renovables": "#0284c7",
+    "Vialidad y Movilidad Urbana": "#4f46e5",
+    "Política Fiscal y Presupuesto": "#7c3aed"
+  };
+  const VIEWS = {
+    ARG: [[-38.5, -64.0], 4], LATAM: [[-10.0, -70.0], 3], EU: [[44.0, 2.0], 4], WORLD: [[15.0, -30.0], 2]
+  };
+  const MONTHS = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+  let data = [];
+  let map, markersLayer;
+  const markerById = {};
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "#";
+  const colorOf = cat => CATEGORIES[cat] || "#64748b";
+  const fmtDate = d => { const [y,m,day] = (d || "").split("-"); return y ? `${day} ${MONTHS[+m-1]} ${y}` : ""; };
+
+  function initMap() {
+    if (typeof L === 'undefined') { $('ecofiscalMap').innerHTML = '<div class="empty">No se pudo cargar el mapa.</div>'; return; }
+    map = L.map('ecofiscalMap', { scrollWheelZoom: false }).setView(...VIEWS.LATAM);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18
+    }).addTo(map);
+    markersLayer = L.layerGroup().addTo(map);
+    document.querySelectorAll('[data-focus]').forEach(b =>
+      b.addEventListener('click', () => map.flyTo(...VIEWS[b.dataset.focus])));
+  }
+
+  function buildLegendAndFilter() {
+    $('legend').innerHTML = Object.entries(CATEGORIES)
+      .map(([c, hex]) => `<span><span class="dot" style="background:${hex}"></span>${esc(c)}</span>`).join('');
+    $('filterCategory').insertAdjacentHTML('beforeend',
+      Object.keys(CATEGORIES).map(c => `<option>${esc(c)}</option>`).join(''));
+  }
+
+  // Separa levemente los puntos que comparten coordenadas para que no se tapen.
+  function spreadCoords(items) {
+    const seen = {};
+    return items.map(it => {
+      const key = `${it.lat},${it.lng}`;
+      const n = seen[key] = (seen[key] || 0) + 1;
+      if (n === 1) return [it.lat, it.lng];
+      const angle = n * 2.4, r = 0.15 * Math.sqrt(n);
+      return [it.lat + r * Math.sin(angle), it.lng + r * Math.cos(angle)];
+    });
+  }
+
+  function renderMarkers(items) {
+    if (!markersLayer) return;
+    markersLayer.clearLayers();
+    const coords = spreadCoords(items);
+    items.forEach((it, i) => {
+      if (typeof it.lat !== 'number' || typeof it.lng !== 'number') return;
+      const m = L.circleMarker(coords[i], {
+        radius: 8, color: '#fff', weight: 2, fillColor: colorOf(it.category), fillOpacity: .95
+      }).bindPopup(`
+        <div style="max-width:240px">
+          <div style="font-size:11px;color:#64748b">${esc(it.locationName)} · ${fmtDate(it.date)}</div>
+          <strong style="display:block;margin:4px 0">${esc(it.title)}</strong>
+          <div style="font-size:12px;color:${colorOf(it.category)};font-weight:600">${esc(it.category)}</div>
+          <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener">Ver fuente →</a>
+        </div>`);
+      markersLayer.addLayer(m);
+      markerById[it.id] = m;
+    });
+  }
+
+  function renderCards(items) {
+    $('resultsCount').textContent = items.length;
+    if (!items.length) {
+      $('resultsGrid').innerHTML = '<div class="empty">No hay novedades que coincidan con la búsqueda.</div>';
+      return;
+    }
+    $('resultsGrid').innerHTML = items.map(it => `
+      <article class="card">
+        <div>
+          <div class="meta">
+            <span class="badge" style="background:${colorOf(it.category)}">${esc(it.category)}</span>
+            <span>${fmtDate(it.date)}</span>
+          </div>
+          <div class="loc">📍 ${esc(it.locationName)} · ${esc(it.type)}</div>
+          <h3>${esc(it.title)}</h3>
+          <p>${esc(it.summary)}</p>
+        </div>
+        <div class="actions">
+          <button data-fly="${it.id}">Ubicar en el mapa</button>
+          <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener">Fuente ↗</a>
+        </div>
+      </article>`).join('');
+  }
+
+  function applyFilters() {
+    const q = $('searchInput').value.trim().toLowerCase();
+    const cat = $('filterCategory').value, reg = $('filterRegion').value, sort = $('sortOrder').value;
+    const items = data.filter(it => {
+      const hay = [it.title, it.summary, it.source, it.locationName, ...(it.tags || [])].join(' ').toLowerCase();
+      return (!q || hay.includes(q)) && (cat === 'ALL' || it.category === cat) && (reg === 'ALL' || it.region === reg);
+    }).sort((a, b) =>
+      sort === 'title' ? a.title.localeCompare(b.title) :
+      sort === 'oldest' ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+    renderCards(items);
+    renderMarkers(items);
+  }
+
+  $('resultsGrid').addEventListener('click', e => {
+    const id = e.target.closest('[data-fly]')?.dataset.fly;
+    const m = id && markerById[id];
+    if (!m || !map) return;
+    map.flyTo(m.getLatLng(), 7);
+    m.openPopup();
+    $('ecofiscalMap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  ['searchInput'].forEach(id => $(id).addEventListener('input', applyFilters));
+  ['filterCategory', 'filterRegion', 'sortOrder'].forEach(id => $(id).addEventListener('change', applyFilters));
+  $('resetBtn').addEventListener('click', () => {
+    $('searchInput').value = ''; $('filterCategory').value = 'ALL'; $('filterRegion').value = 'ALL'; $('sortOrder').value = 'newest';
+    applyFilters();
+  });
+
+  async function start() {
+    initMap();
+    buildLegendAndFilter();
+    try {
+      const res = await fetch('data/novedades_mapa.json', { cache: 'no-store' });
+      data = await res.json();
+      const latest = data.map(d => d.date).sort().pop();
+      if (latest) $('updatedAt').textContent = `Última novedad: ${fmtDate(latest)}`;
+    } catch (err) {
+      $('resultsGrid').innerHTML = '<div class="empty">No se pudo cargar data/novedades_mapa.json.</div>';
+      return;
+    }
+    applyFilters();
+  }
+  start();
+</script>
+</body>
+</html>
